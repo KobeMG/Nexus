@@ -1,8 +1,38 @@
-﻿@{
+﻿@model IEnumerable<Proyecto_Nexus.Models.Product>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Bienvenido a Macrame Colors</h1>
+    <p class="lead">
+        Pulseras artesanales con un toque único ✨
+        Diseños personalizados y hechos a mano 🧵
+        📍Envíos nacionales 
+        Tu estilo, tu historia.
+    </p>
+</div>
+
+<hr class="my-4" />
+
+<div class="container">
+    <div class="row">
+        @foreach (var product in Model)
+        {
+            <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+                <a href="@Url.Action("ProductDetails", "Home", new { id = product.Id })" class="card h-100 shadow-sm text-decoration-none text-dark">
+                    <img src="@product.ImageUrl" class="card-img-top" alt="@product.Name" style="height: 200px; object-fit: cover;">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title text-center">@product.Name</h5>
+                        <p class="card-text text-muted text-center flex-grow-1">@product.Description</p>
+                        <div class="mt-auto text-center">
+                            <p class="card-text"><strong>$@product.Price</strong></p>
+                            <button class="btn btn-primary mt-2">Ver Detalles</button>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+    </div>
 </div>

@@ -1,0 +1,21 @@
+﻿@model Proyecto_Nexus.Models.Product //Recibimos el objeto que mandamos desde el controlador
+
+@{
+    ViewData["Title"] = @Model.Name;
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6">
+            <img src="@Model.ImageUrl" class="img-fluid rounded shadow-sm" alt="@Model.Name">
+        </div>
+        <div class="col-md-6">
+            <h1 class="display-4">@Model.Name</h1>
+            <p class="lead">@Model.Description</p>
+            <p class="text-primary h3">$@Model.Price</p>
+            <p><strong>Available Stock:</strong> @Model.Stock</p>
+            <button class="btn btn-primary btn-lg mt-3">Add to Cart</button>
+            <a href="/" class="btn btn-outline-secondary btn-lg mt-3 ms-2">Back to Products</a>
+        </div>
+    </div>
+</div>

@@ -1,21 +1,37 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Proyecto_Nexus.Models;
+using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace Proyecto_Nexus.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly StoreDbContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(StoreDbContext context) //Para hacer la intexión de la BD.
         {
-            _logger = logger;
+            _context = context;
         }
 
-        public IActionResult Index()
+
+
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var products = await _context.Products.ToListAsync();
+            return View(products); //Enviar los productos de la BD a la vista!
+            //return View(products);
+        }
+
+        public async Task<IActionResult> ProductDetails(int id) //Hace llamado a la vista de productos.
+        {
+            var product = await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
+            if (product == null)
+            {
+                return NotFound(); // Retorna un error 404 si el producto no se encuentra
+            }
+            return View(product);
         }
 
         public IActionResult Privacy()
