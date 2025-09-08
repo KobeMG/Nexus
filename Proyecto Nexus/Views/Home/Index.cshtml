@@ -5,7 +5,7 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Bienvenido a Macrame Colors</h1>
+    <h1 class="display-4">Bienvenidos a Macrame Colors</h1>
     <p class="lead">
         Pulseras artesanales con un toque único ✨
         Diseños personalizados y hechos a mano 🧵
@@ -22,12 +22,12 @@
         {
             <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
                 <a href="@Url.Action("ProductDetails", "Home", new { id = product.Id })" class="card h-100 shadow-sm text-decoration-none text-dark">
-                    <img src="@product.ImageUrl" class="card-img-top" alt="@product.Name" style="height: 200px; object-fit: cover;">
+                    <img src="@product.Images.FirstOrDefault()?.ImageUrl" class="card-img-top" alt="@product.Name" style="height: 200px; object-fit: cover;">
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title text-center">@product.Name</h5>
-                        <p class="card-text text-muted text-center flex-grow-1">@product.Description</p>
+                        @* <p class="card-text text-muted text-center flex-grow-1">@product.Description</p> *@
                         <div class="mt-auto text-center">
-                            <p class="card-text"><strong>$@product.Price</strong></p>
+                            <p class="card-text"><strong>₡@product.Price</strong></p>
                             <button class="btn btn-primary mt-2">Ver Detalles</button>
                         </div>
                     </div>

@@ -1,0 +1,60 @@
+﻿@model Proyecto_Nexus.ViewModels.CartViewModel
+
+@{
+    ViewData["Title"] = "Tu Carrito de Compras";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Carrito de Compras Actual</h2>
+    <hr />
+
+    @if (Model.CartItems.Any())
+    {
+        <table class="table table-hover table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.CartItems)
+                {
+                    <tr>
+                        <td>
+                            <img src="@item.ImageUrl" alt="@item.ProductName" style="max-width: 80px; max-height: 80px;" class="img-thumbnail me-2" />
+                            @item.ProductName
+                        </td>
+                        <td>@item.Quantity</td>
+                        <td>@item.Price.ToString("c")</td>
+                        <td>@item.TotalItemPrice.ToString("c")</td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3" class="text-end fw-bold">Total General:</td>
+                    <td class="fw-bold">@Model.GrandTotal.ToString("c")</td>
+                </tr>
+            </tfoot>
+            <div class="row mt-4">
+                <div class="col-12 text-end">
+                    <a class="btn btn-outline-secondary" asp-controller="Home" asp-action="Index">Seguir Comprando</a>
+                </div>
+            </div>
+        </table>
+    }
+    else
+    {
+        <div class="alert alert-info text-center" role="alert">
+            El carrito de compras está vacío, ¿Y si vemos algunas pulseras?
+        </div>
+        <div class="row mt-4">
+            <div class="col-12 text-end">
+                <a class="btn btn-outline-secondary" asp-controller="Home" asp-action="Index">Seguir Comprando</a>
+            </div>
+        </div>
+    }
+</div>

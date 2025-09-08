@@ -2,6 +2,7 @@
 {
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Collections.Generic;
     public class Product
     {
         [Key]
@@ -15,7 +16,6 @@
         public decimal Price { get; set; }
 
         public int Stock { get; set; }
-
-        public string ImageUrl { get; set; }
+        public ICollection<ProductImage> Images { get; set; } = new List<ProductImage>();
     }
 }

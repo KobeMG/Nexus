@@ -7,6 +7,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<StoreDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddSession(); //Manejo de sesiones
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -19,6 +20,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseRouting();
+app.UseSession(); // Habilitar el uso de sesiones
 
 app.UseAuthorization();
 

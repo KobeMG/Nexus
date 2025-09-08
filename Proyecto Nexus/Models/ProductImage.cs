@@ -3,16 +3,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Proyecto_Nexus.Models
 {
-    public class CartItem
+    public class ProductImage
     {
         public int Id { get; set; }
 
+        public string ImageUrl { get; set; }
+
         public int ProductId { get; set; }
         public Product Product { get; set; }
-
-        public string ShoppingCartId { get; set; }
-        public ShoppingCart ShoppingCart { get; set; }
-
-        public int Quantity { get; set; }
     }
 }

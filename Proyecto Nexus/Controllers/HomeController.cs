@@ -19,17 +19,16 @@ namespace Proyecto_Nexus.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var products = await _context.Products.ToListAsync();
-            return View(products); //Enviar los productos de la BD a la vista!
-            //return View(products);
+            var products = await _context.Products.Include(p => p.Images).ToListAsync();
+            return View(products);
         }
 
-        public async Task<IActionResult> ProductDetails(int id) //Hace llamado a la vista de productos.
+        public async Task<IActionResult> ProductDetails(int id)
         {
-            var product = await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
+            var product = await _context.Products.Include(p => p.Images).FirstOrDefaultAsync(p => p.Id == id);
             if (product == null)
             {
-                return NotFound(); // Retorna un error 404 si el producto no se encuentra
+                return NotFound();
             }
             return View(product);
         }

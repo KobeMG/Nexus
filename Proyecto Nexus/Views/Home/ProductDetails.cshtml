@@ -7,15 +7,49 @@
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-6">
-            <img src="@Model.ImageUrl" class="img-fluid rounded shadow-sm" alt="@Model.Name">
+            @if (Model.Images != null &&   Model.Images.Any())
+            {
+                <div id="productCarousel" class="carousel slide shadow-sm rounded" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        @{
+                            int i = 0;
+                        }
+                        @foreach (var image in Model.Images)
+                        {
+                            <div class="carousel-item @(i == 0 ? "active" : "")">
+                                <img src="@image.ImageUrl" class="d-block w-100" alt="@Model.Name" style="height: 400px; object-fit: cover;">
+                            </div>
+                            i++;
+                        }
+                    </div>
+                    @if (Model.Images.Count > 1)
+                    {
+                        <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    }
+                </div>
+            }
+            else
+            {
+                <img src="https://i.ibb.co/HfWPj1XG/0b25f465f3fac630ab8392e4ca48da3f.jpg" class="img-fluid rounded shadow-sm" alt="No Image Available">
+            }
         </div>
         <div class="col-md-6">
             <h1 class="display-4">@Model.Name</h1>
             <p class="lead">@Model.Description</p>
-            <p class="text-primary h3">$@Model.Price</p>
+            <p class="text-primary h3">₡@Model.Price</p>
             <p><strong>Available Stock:</strong> @Model.Stock</p>
-            <button class="btn btn-primary btn-lg mt-3">Add to Cart</button>
-            <a href="/" class="btn btn-outline-secondary btn-lg mt-3 ms-2">Back to Products</a>
+            <form asp-controller="Cart" asp-action="AddToCart" method="post">
+                <input type="hidden" name="productId" value="@Model.Id" />
+                <button type="submit" class="btn btn-primary btn-lg mt-3">Agregar al Carrito</button>
+            </form>
+            <a href="/" class="btn btn-outline-secondary btn-lg mt-3 ms-2">Atrás</a>
         </div>
     </div>
 </div>
